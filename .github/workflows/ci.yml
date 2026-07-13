@@ -1,0 +1,28 @@
+name: Uranos CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  quality:
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode 16.4
+        run: sudo xcode-select -s /Applications/Xcode_16.4.app
+
+      - name: Swift format lint
+        run: |
+          swift format lint --configuration .swift-format --strict Package.swift
+          swift format lint --configuration .swift-format --strict --recursive Sources Tests
+
+      - name: Build
+        run: swift build
+
+      - name: Test
+        run: swift test
