@@ -1,3 +1,4 @@
+<!-- cspell:locale de,en -->
 # Uranos Agent Notes
 
 ## Default Workflow
