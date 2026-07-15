@@ -1,0 +1,33 @@
+version: 1
+language: swift
+framework: swiftpm
+style_guide:
+  - swift-api-design-guidelines
+  - swiftlang-conventions
+
+review_focus:
+  - code_quality
+  - security
+  - performance
+  - testing
+  - documentation
+
+severity:
+  error: true
+  warning: true
+  info: true
+
+custom_guidelines:
+  - Use guard for early exits and clear failure paths
+  - Favor value types (struct, enum) where reference semantics are not required
+  - Keep functions focused and limit complexity/length
+  - Document public APIs with Swift doc comments (///)
+  - Use lowerCamelCase for functions, methods, and properties
+  - Use UpperCamelCase for types
+
+exclude:
+  - .build/
+  - DerivedData/
+  - "*.xcodeproj"
+  - "*.xcworkspace"
+  - ".swiftpm/"

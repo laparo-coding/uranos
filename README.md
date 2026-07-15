@@ -34,10 +34,41 @@ swift format lint --configuration .swift-format --strict --recursive Sources Tes
 swift format --configuration .swift-format --recursive Sources Tests
 ```
 
-## Platforms
+## Platform Requirements
 
-- iOS 18+
-- watchOS 11+
+- **Xcode 16+** with watchOS 11+ SDK
+- **Swift 6.1+** (toolchain)
+- **watchOS 11+** (deployment target)
+- **iOS 18+** (companion app deployment target)
+- **VS Code** with the [`swiftlang.swift-vscode`](https://marketplace.visualstudio.com/items?itemName=swiftlang.swift-vscode) extension
+- **SwiftPM** as the canonical build and dependency system
+
+For deployment details, see `docs/WATCHOS-DEPLOYMENT.md`.
+
+## Authentication Setup
+
+Uranos communicates with the Aither API using a Bearer token. Configure the
+token before running the app:
+
+1. Copy `.env.local.example` to `.env.local`
+2. Set `AITHER_BEARER_TOKEN` to your Aither API token
+3. The token is loaded at app startup and passed to `AitherAPIClient`
+
+```bash
+cp .env.local.example .env.local
+# Edit .env.local and add your token
+```
+
+> ⚠️ Never commit `.env.local` — it is gitignored by default.
+
+## VS Code Tasks
+
+| Task | Command | Shortcut |
+|------|---------|----------|
+| Build Debug | `swift build -c debug` | `Cmd+Shift+B` |
+| Test | `swift test` | `Cmd+Shift+T` (task list) |
+| Format | `swift format format -i -r Sources Tests` | task list |
+| Lint | `swift format lint --strict -r Sources Tests` | task list |
 
 ## Related Repositories
 

@@ -1,0 +1,18 @@
+---
+version: 2
+
+engines:
+  # Swift Linting
+  swiftlint:
+    enabled: true
+
+exclude_paths:
+  - .build
+  - DerivedData
+  - .swiftpm
+  - "*.xcodeproj"
+  - "*.xcworkspace"
+
+exclude_patterns:
+  - "(^|/)\\..*"
+  - "^tests/.*"
