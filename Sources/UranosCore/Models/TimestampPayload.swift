@@ -1,9 +1,11 @@
 import Foundation
 
-/// Payload transmitted to the Aither timestamp endpoint.
+/// Internal payload model representing a captured glench timestamp.
 ///
-/// Contains the minimal fields required by the Aither API (`unixTimestamp` and
-/// `actionId`) plus internal retry metadata that is never serialized to JSON.
+/// Stores the raw event data (`unixTimestamp` and `actionId`) along with
+/// internal retry metadata. Note: the Aither API request body (`AitherRequestBody`)
+/// only sends `timestamp` — this model is the internal representation used
+/// for queueing, retry tracking, and diagnostics.
 public struct TimestampPayload: Codable, Sendable, Equatable {
 
   /// Unix timestamp in seconds precision.

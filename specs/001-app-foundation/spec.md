@@ -10,7 +10,7 @@
 ### Session 2026-07-13
 
 - Q1: Should network timeout and retry strategy be part of formal spec or left to research/implementation? → A1: Promote to formal requirement. FR-009 adds: "Request timeout is 15 seconds. On network error/429/5xx, retry with exponential backoff [1,2,4,8,16]s (5 retries max). On 401/4xx, clear queue immediately."
-- Q2: What fields should the TimestampPayload contain for Aither API? → A2: Minimal payload with `unixTimestamp` (Unix seconds) and `actionId` (UUID string). No deviceId, retryCount, or createdAt in payload.
+- Q2: What fields should the TimestampPayload contain for Aither API? → A2: Internal model uses `unixTimestamp` (Unix seconds) and `actionId` (UUID). The API request body (`AitherRequestBody`) sends only `{ "timestamp": <unixSeconds> }`. No deviceId, retryCount, or createdAt in the API payload.
 - Q3: When offline queue reaches 500 entries, what happens to new timestamps? → A3: FIFO overflow—drop oldest entry, add new timestamp to end. Acceptable for transient Watch events; newest captures prioritized.
 - Q4: Should rapid consecutive glench actions be debounced? → A4: Yes, 500ms debounce window. Ignore glench events within 500ms of previous valid capture. Single action = single timestamp queued. Prevents accidental double-captures.
 - Q5: How should authentication credentials be provided to the app? → A5: Configuration file (.env, gitignored) or Xcode build configuration, matching Gaia pattern. Developer must set token before running app.

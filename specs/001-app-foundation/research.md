@@ -122,7 +122,7 @@ Research questions:
 ### Q3 Alternatives
 - **UserDefaults only**: Rejected (size limits, unreliable persistence)
 - **SQLite only**: Rejected (slower access for metadata queries)
-- **In-memory cache**: Rejected (data loss on app restart)
+- **In-memory cache**: Selected — acceptable for transient Watch events; newest captures prioritized over persistence across restarts.
 
 ### Q5 Alternatives
 - **Linear backoff**: Rejected (higher thundering herd risk)

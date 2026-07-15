@@ -21,7 +21,7 @@ swift format lint
 1. Obtain Aither API token (use same token as Gaia)
 2. Store token in environment or `.env.local` file:
    ```
-   AITHER_API_TOKEN=<your-token-here>
+   AITHER_BEARER_TOKEN=<your-token-here>
    ```
 3. App loads token at startup and uses it for all API requests
 
@@ -79,10 +79,10 @@ xcrun log stream --predicate 'process == "uranos"' --level debug
 ### Check API Connectivity
 
 ```bash
-curl -H "Authorization: Bearer $AITHER_API_TOKEN" \
-     -X POST https://aither.api.endpoint/timestamps \
+curl -H "Authorization: Bearer $AITHER_BEARER_TOKEN" \
+     -X POST "${AITHER_API_URL:-http://localhost:3000/api/recording/timestamp}" \
      -H "Content-Type: application/json" \
-     -d '{"unixTimestamp": 1720380913, "format": "unix-utc", "actionId": "test"}'
+     -d '{"timestamp": 1720380913}'
 ```
 
 ## Next Steps
