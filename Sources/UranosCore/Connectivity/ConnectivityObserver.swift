@@ -35,7 +35,7 @@ public final class ConnectivityObserver: @unchecked Sendable {
       monitor.pathUpdateHandler = { [weak self] path in
         guard let self else { return }
 
-        let wasDisconnected = self.currentStatus == .satisfied
+        let wasDisconnected = self.currentStatus != .satisfied
         self.currentStatus = path.status
 
         if path.status == .satisfied && wasDisconnected {
@@ -72,7 +72,7 @@ public final class ConnectivityObserver: @unchecked Sendable {
 public final class RetryCoordinator: @unchecked Sendable {
 
   private let client: AitherAPIClient
-  private let queue = OfflineTimestampQueue()
+  private var queue = OfflineTimestampQueue()
 
   /// Creates a retry coordinator with the given API client.
   public init(client: AitherAPIClient) {
@@ -81,7 +81,6 @@ public final class RetryCoordinator: @unchecked Sendable {
 
   /// Enqueues a payload for later retry.
   public func enqueue(_ payload: TimestampPayload) {
-    var queue = self.queue
     queue.append(payload)
   }
 
@@ -90,7 +89,6 @@ public final class RetryCoordinator: @unchecked Sendable {
   /// - Returns: The number of successfully transmitted payloads.
   @discardableResult
   public func retryPending() async -> Int {
-    var queue = self.queue
     let count = await retryQueue(&queue)
     return count
   }
