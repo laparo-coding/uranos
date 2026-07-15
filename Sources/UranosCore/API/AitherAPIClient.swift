@@ -8,8 +8,11 @@ public final class AitherAPIClient: Sendable {
 
   /// The base URL for the Aither timestamp endpoint.
   /// Uses `AITHER_API_URL` env var if set, otherwise defaults to localhost for dev.
+
   public static let endpointURL: URL = {
-    let urlString = ProcessInfo.processInfo.environment["AITHER_API_URL"]
+
+    let urlString =
+      ProcessInfo.processInfo.environment["AITHER_API_URL"]
       ?? "http://localhost:3000/api/recording/timestamp"
     guard let url = URL(string: urlString) else {
       fatalError("Invalid Aither endpoint URL: \(urlString)")

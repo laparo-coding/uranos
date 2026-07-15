@@ -1,7 +1,7 @@
 import SwiftUI
-import WatchKit
 import UranosCore
 import UranosWatchKit
+import WatchKit
 
 /// Entry point for the Uranos watchOS app.
 @main
@@ -106,7 +106,11 @@ final class UranosAppDelegate: NSObject, WKApplicationDelegate, ObservableObject
         transmissionState = .failed
       }
     } catch {
-      UranosLogger.logTransmissionFailure(payload: payload, error: error as? AitherError ?? .networkError, retryCount: payload.retryCount)
+      UranosLogger.logTransmissionFailure(
+        payload: payload,
+        error: error as? AitherError ?? .networkError,
+        retryCount: payload.retryCount
+      )
       await MainActor.run {
         transmissionState = .failed
       }
