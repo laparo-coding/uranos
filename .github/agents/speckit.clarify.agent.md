@@ -1,6 +1,6 @@
 ---
 description: Identify underspecified areas in the current feature spec by asking up to 5 highly targeted clarification questions and encoding answers back into the spec.
-handoffs: 
+handoffs:
   - label: Build Technical Plan
     agent: speckit.plan
     prompt: Create a plan for the spec. I am building with...
@@ -46,6 +46,7 @@ You **MUST** consider the user input before proceeding (if not empty).
 
     Wait for the result of the hook command before proceeding to the Outline.
     ```
+    After emitting the block above you MUST actually invoke the hook and wait for it to finish before continuing. See docs/SPECKIT-HOOK-EXECUTION.md for the canonical invocation patterns that map `{command}` to a concrete action in each supported runtime environment (VS Code Copilot Chat, OpenAI Codex, Claude Code, Generic CLI/Shell, Qodo IDE Plugin). Emitting the block alone does not run the hook.
 - If no hooks are registered or `.specify/extensions.yml` does not exist, skip silently
 
 ## Outline
@@ -248,6 +249,7 @@ Check if `.specify/extensions.yml` exists in the project root.
     Executing: `/{command}`
     EXECUTE_COMMAND: {command}
     ```
+    After emitting the block above you MUST actually invoke the hook and wait for it to finish before continuing. See docs/SPECKIT-HOOK-EXECUTION.md for the canonical invocation patterns that map `{command}` to a concrete action in each supported runtime environment (VS Code Copilot Chat, OpenAI Codex, Claude Code, Generic CLI/Shell, Qodo IDE Plugin). Emitting the block alone does not run the hook.
   - **Optional hook** (`optional: true`):
     ```
     ## Extension Hooks

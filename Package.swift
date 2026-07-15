@@ -12,16 +12,16 @@ let package = Package(
     .library(name: "UranosCore", targets: ["UranosCore"]),
     .library(name: "UranosWatchKit", targets: ["UranosWatchKit"]),
     .executable(name: "UranosCLI", targets: ["UranosCLI"]),
+    // UranosWatchApp is built via Xcode (requires WatchKit on watchOS).
   ],
   dependencies: [
-    .package(url: "https://github.com/rollbar/rollbar-apple", from: "3.4.0")
+    // Rollbar removed: incompatible with watchOS 11 deployment target.
+    // UranosLogger provides structured logging without external dependencies.
   ],
   targets: [
     .target(
       name: "UranosCore",
-      dependencies: [
-        .product(name: "RollbarNotifier", package: "rollbar-apple")
-      ]
+      dependencies: []
     ),
     .target(
       name: "UranosWatchKit",
@@ -31,6 +31,7 @@ let package = Package(
       name: "UranosCLI",
       dependencies: ["UranosCore"]
     ),
+    // UranosWatchApp target omitted — built via Xcode (WatchKit not available in SwiftPM on macOS).
     .testTarget(
       name: "UranosCoreTests",
       dependencies: ["UranosCore"]

@@ -1,7 +1,6 @@
 // UranosCore — Shared business logic for the Uranos Apple Watch companion app.
 
 import Foundation
-import RollbarNotifier
 
 /// Top-level namespace for Uranos core functionality.
 public enum UranosCore {

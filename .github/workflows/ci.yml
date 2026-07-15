@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Select Xcode 16.4
         run: sudo xcode-select -s /Applications/Xcode_16.4.app
@@ -26,3 +28,46 @@ jobs:
 
       - name: Test
         run: swift test
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check changed files
+        id: changed
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE="origin/${{ github.base_ref }}"
+          else
+            BASE="HEAD~1"
+          fi
+          if git diff --name-only "$BASE" HEAD -- docs/ README.md .github/workflows/ci.yml | grep -q .; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify watchOS deployment guide exists
+        if: steps.changed.outputs.run == 'true'
+        run: test -f docs/WATCHOS-DEPLOYMENT.md
+
+      - name: Validate watchOS deployment guide content
+        if: steps.changed.outputs.run == 'true'
+        run: |
+          file="docs/WATCHOS-DEPLOYMENT.md"
+          # Require at least one heading and a minimum word count
+          headings=$(grep -c '^#' "$file" || true)
+          words=$(wc -w < "$file" | tr -d ' ')
+          if [ "$headings" -lt 1 ]; then
+            echo "::error::$file has no Markdown headings"
+            exit 1
+          fi
+          if [ "$words" -lt 50 ]; then
+            echo "::error::$file has only $words words (minimum 50 required)"
+            exit 1
+          fi
+          echo "✓ $file: $headings headings, $words words"
