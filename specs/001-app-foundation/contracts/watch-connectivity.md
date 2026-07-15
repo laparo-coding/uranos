@@ -47,13 +47,12 @@ Authorization: Bearer {auth_token}
 **Request Body Schema**:
 ```json
 {
-  "timestamp": 1720380913
+  "unixTimestamp": 1720380913,
+  "format": "unix-utc",
+  "actionId": "550e8400-e29b-41d4-a716-446655440000",
+  "createdAt": "2026-07-13T10:15:13Z"
 }
 ```
-
-> **Note:** The internal `TimestampPayload` model tracks `unixTimestamp`, `actionId`,
-> and retry metadata, but the API request body (`AitherRequestBody`) only sends
-> `timestamp` (Unix seconds).
 
 ## Response Contract
 
@@ -110,3 +109,4 @@ Authorization: Bearer {auth_token}
 - [ ] Request timeout is 15 seconds (watchOS network conditions)
 - [ ] Failed requests are queued for offline retry
 - [ ] Exponential backoff intervals enforced: [1, 2, 4, 8, 16] seconds
+- [ ] SQLite queue has index on `createdAt` for TTL cleanup
