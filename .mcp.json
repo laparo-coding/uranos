@@ -3,13 +3,13 @@
     "codacy": {
       "type": "local",
       "command": "bash",
-      "args": ["/Users/Andreas/GitHub/uranos/.vscode/codacy-mcp.sh"],
+      "args": [".vscode/codacy-mcp.sh"],
       "tools": ["*"]
     },
     "context7": {
       "type": "local",
       "command": "bash",
-      "args": ["/Users/Andreas/GitHub/uranos/.vscode/context7-mcp.sh"],
+      "args": [".vscode/context7-mcp.sh"],
       "tools": ["*"]
     },
     "playwright": {

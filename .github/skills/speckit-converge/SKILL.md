@@ -1,5 +1,5 @@
 ---
-name: speckit.converge
+name: speckit-converge
 description: "Assess the current codebase against the feature's spec, plan, and tasks, then append any remaining unbuilt work as new tasks to tasks.md so implement can complete it."
 user-invocable: true
 disable-model-invocation: true
