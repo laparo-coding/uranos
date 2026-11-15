@@ -18,15 +18,6 @@
       "args": ["@playwright/mcp@latest"],
       "tools": ["*"]
     },
-    "rollbar": {
-      "type": "local",
-      "command": "npx",
-      "args": ["-y", "@rollbar/mcp-server@latest"],
-      "env": {
-        "ROLLBAR_CONFIG_FILE": "/Users/Andreas/GitHub/uranos/.rollbar-mcp.json"
-      },
-      "tools": ["*"]
-    },
     "clerk": {
       "type": "http",
       "url": "https://mcp.clerk.com/mcp",
